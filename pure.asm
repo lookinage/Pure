@@ -12,16 +12,30 @@ use32
 
 Start:
 
+L:
+
+in al, 0x60
+
+mov [SuccessMessage + 0xF], al
 mov ebx, SuccessMessage
 call Write
 
+jmp L
+
+;mov ecx, 0x20000
+;Fill:
+
+;mov [0x9FFFF+ecx], byte 0x41
+
+;loop Fill
+
+
 jmp $
 
-SuccessMessage db "Pure is loaded.", 0x0
-
-include "gdt32.asm"
 include "switch32.asm"
 include "write.asm"
+
+SuccessMessage db "Pure was loaded! ", 0x0
 
 times 510-($-$$) db 0
 dw 0xAA55
